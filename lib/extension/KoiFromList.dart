@@ -1,11 +1,9 @@
-extension KoiFromList on List{
+extension KoiFromList<T> on List<T>{
 
   /// akan menghasilkan file json dari list ini.
   ///
   /// **Parameter**
   /// * [keyName]: Nilai default null. Kalau diisi akan menghasilkan json seperti "{keyName: |values|}". Kalau tidak diisi jsonnya hanya "|values|"
-  ///
-  ///
   String koiToJsonString({String? keyName = null}){
 
     String listString = "";
@@ -56,5 +54,25 @@ extension KoiFromList on List{
     else{
       return '{"${keyName}": [${listString}]}';
     }
+  }
+
+
+  /// gabungkan list ini dengan list di parameternya
+  ///
+  /// **Parameter**
+  /// * [otherList]: list yang mau digabungkan dengan list ini
+  ///
+  /// **Contoh**
+  /// > |1, 2, 3|.koiJoinList(|4, 5, 6|)
+  List<T> koiJoinList(List<T> otherList){
+    var thisList = this as List<T>;
+
+    if(thisList.length > 0 && otherList.length > 0){
+      otherList.forEach((element) {
+        thisList.add(element);
+      });
+    }
+
+    return thisList;
   }
 }
