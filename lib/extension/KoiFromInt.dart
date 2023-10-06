@@ -1,15 +1,18 @@
-extension KoiFromString on int{
+extension KoiFromInt on int{
   /// Ubah int jadi string dengan x digit sesuai parameternya.
   ///
   /// **Parameter**
   /// * [digit]: Jumlah digit yang mau ditambahkan. Defaultnya adalah 2. Penjelasan lihat [Contoh] dibawah
+  ///
+  /// **Ketentuan**
+  ///  * Kalau jumlah digit [nilai asli] lebih besar dari parameter [digit], misalnya angka "100" dan parameter digit "2", Fungsi ini akan mereturn angka asli "100" tidak menambah nol lagi di belakang
   ///
   /// **Contoh**
   /// * 7 dengan digit = 2, akan diconvert jadi "07"
   /// * 12 dengan digit = 2, akan diconvert jadi "12"
   ///
   /// **WARNING**
-  /// * kalau nilainya int-nya minus, fungsi ini akan mengembalikan error
+  /// * kalau [nilai asli]nya minus, fungsi ini akan mengembalikan error
   /// * kalau parameter [digit] nilainya kurang dari 1, fungsi ini akan error
   String koiToXDigit({int digit = 2}){
     if(this < 0){

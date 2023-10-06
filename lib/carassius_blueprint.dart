@@ -1,7 +1,4 @@
 library carassius_blueprint;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'extension/carassius_extension.dart';
+export 'library/carassius_library.dart';
