@@ -9,10 +9,7 @@ void main() {
       KoiScaffold(
         themeColor: ThemeColor.autoGenerateFromColor(Colors.deepOrange),
         routes: KoiScaffoldRoute
-            .baseRoute(
-              KoiPageError.NotFound()
-            )
-            //.baseRoute(Halaman1())
+            .baseRoute(Halaman1())
             .addRoutes("/halaman2", Halaman2())
       )
   );

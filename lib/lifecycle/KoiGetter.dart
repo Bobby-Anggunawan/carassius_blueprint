@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 
-extension KoiFromTextStyle on TextStyle{
+class KoiGetter{
+
+  static ColorScheme themeColor(BuildContext context){
+    return Theme.of(context).colorScheme;
+  }
+
+  static TextStyles themeText(BuildContext context){
+    return TextStyles(context: context);
+  }
+
+}
+
+class TextStyles{
+
+  final BuildContext context;
+  TextStyles({required this.context});
 
   /// untuk mendapat semua text style dari theme ini
-  TextTheme koiGetThemeText(BuildContext context){
+  TextTheme getAllStyle(){
     return Theme.of(context).textTheme;
   }
 
@@ -11,7 +26,7 @@ extension KoiFromTextStyle on TextStyle{
   //daftar shortcut
 
   /// textstyle body dari theme ini
-  TextStyle body(BuildContext context, {TextStyleSize size = TextStyleSize.Medium}){
+  TextStyle body({TextStyleSize size = TextStyleSize.Medium}){
     if(size == TextStyleSize.Small){
       return Theme.of(context).textTheme.bodySmall ?? TextStyle();
     }
@@ -27,7 +42,7 @@ extension KoiFromTextStyle on TextStyle{
   }
 
   /// textstyle title dari theme ini
-  TextStyle title(BuildContext context, {TextStyleSize size = TextStyleSize.Medium}){
+  TextStyle title({TextStyleSize size = TextStyleSize.Medium}){
     if(size == TextStyleSize.Small){
       return Theme.of(context).textTheme.titleSmall ?? TextStyle();
     }
@@ -43,7 +58,7 @@ extension KoiFromTextStyle on TextStyle{
   }
 
   /// textstyle headline dari theme ini
-  TextStyle headline(BuildContext context, {TextStyleSize size = TextStyleSize.Medium}){
+  TextStyle headline({TextStyleSize size = TextStyleSize.Medium}){
     if(size == TextStyleSize.Small){
       return Theme.of(context).textTheme.headlineSmall ?? TextStyle();
     }
@@ -59,7 +74,7 @@ extension KoiFromTextStyle on TextStyle{
   }
 
   /// textstyle display dari theme ini
-  TextStyle display(BuildContext context, {TextStyleSize size = TextStyleSize.Medium}){
+  TextStyle display({TextStyleSize size = TextStyleSize.Medium}){
     if(size == TextStyleSize.Small){
       return Theme.of(context).textTheme.displaySmall ?? TextStyle();
     }
@@ -75,7 +90,7 @@ extension KoiFromTextStyle on TextStyle{
   }
 
   /// textstyle label dari theme ini
-  TextStyle label(BuildContext context, {TextStyleSize size = TextStyleSize.Medium}){
+  TextStyle label({TextStyleSize size = TextStyleSize.Medium}){
     if(size == TextStyleSize.Small){
       return Theme.of(context).textTheme.labelSmall ?? TextStyle();
     }
