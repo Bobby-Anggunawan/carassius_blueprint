@@ -13,6 +13,15 @@ class Halaman1 extends StatelessWidget {
 
           Text("ikan asin", style: KoiGetter.themeText(context).display().copyWith(color: KoiGetter.themeColor(context).error),),
 
+          KoiContainer(
+            type: MaterialType.card,
+              elevation: 5,
+              color: Colors.blue,
+              height: 200,
+              ratio: Ratio.PortraitShort(),
+              child: Container()
+          ),
+
           ElevatedButton(
             child: Text("Ke halaman 2"),
             onPressed: (){
