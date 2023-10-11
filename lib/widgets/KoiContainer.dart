@@ -1,13 +1,17 @@
 import "package:flutter/material.dart";
 
 /// container untuk widget lain. Seperti class [Container()] di [material.dart], bedanya ini sudah digabung dengan widget penting lain seperi [AspectRatio()] dan [Material()] agar pembuatan layout lebih cepat dan lebih tertata
+///
+/// **Note**
+///
+/// > jika parameter [ratio] diisi, hanya salahsatu [width] atau [height] yang perlu di set, yang lainnya yang null akan otomatis menyesuaikan ukuran berdasarkan parameter [ratio]
 class KoiContainer extends StatelessWidget {
   const KoiContainer({Key? key, this.width, this.height, this.ratio, required this.child, this.type = MaterialType.canvas, this.elevation = 0, this.borderRadius, this.margin, this.padding, this.color, this.alignment = Alignment.center}) : super(key: key);
 
   final double? width;
   final double? height;
 
-  /// aspect ratio child dari widget ini. width atau height atau keduanya lebih baik diisi. size dari child akan mengikuti ratio ini(ukurannya disesuaikan dengan nilai width atau height)
+  /// aspect ratio child dari widget ini. Jika diisi, parameter [width] atau [height] lebih baik hanya diisi salahsatu saja jangan keduanya. Size dari child akan mengikuti ratio ini(ukurannya disesuaikan dengan nilai width atau height yang tidak null)
   final Ratio? ratio;
 
   final Widget child;

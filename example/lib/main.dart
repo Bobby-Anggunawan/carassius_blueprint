@@ -11,6 +11,12 @@ void main() {
         routes: KoiScaffoldRoute
             .baseRoute(Halaman1())
             .addRoutes("/halaman2", Halaman2())
+            .addRoutes("/halaman3", Scaffold(
+              appBar: AppBar(title: Text("Halaman 3"),),
+              body: Center(
+                child: Text("Ini halaman ketiga"),
+              ),
+            ))
       )
   );
 }
