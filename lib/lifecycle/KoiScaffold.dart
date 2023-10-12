@@ -64,30 +64,29 @@ class KoiScaffold extends StatelessWidget {
     }
     //end---buat ThemeData
 
-    // TODO, MaterialApp di sini keknya perlu diganti
     return MaterialApp(
+      routes: routes.getRoutes(),
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: Stack(
-        children: [
-          MaterialApp(
-            routes: routes.getRoutes(),
-            builder: builder,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-          ),
-
-          ValueListenableBuilder<bool>(
-            valueListenable: _isLoading,
-            builder: (BuildContext context, bool value, Widget? child){
-              if(value){
-                return spinner ?? Center(child: CircularProgressIndicator(),);
-              }
-              return SizedBox();
-            }
-          ),
-        ],
-      ),
+      builder: (context, child){
+        if(builder != null){
+          child = builder!(context, child);
+        }
+        return Stack(
+          children: [
+            child!,
+            ValueListenableBuilder<bool>(
+                valueListenable: _isLoading,
+                builder: (BuildContext context, bool value, Widget? child){
+                  if(value){
+                    return spinner ?? Center(child: CircularProgressIndicator(),);
+                  }
+                  return SizedBox();
+                }
+            ),
+          ],
+        );
+      }
     );
   }
 }
