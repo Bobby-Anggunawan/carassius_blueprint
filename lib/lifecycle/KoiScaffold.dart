@@ -1,3 +1,4 @@
+import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
 
 /// Struktur dasar aplikasi, memuat routing, templating, dan lain-lain.
@@ -11,7 +12,16 @@ import "package:flutter/material.dart";
 ///
 /// `main(){runApp(KoiScaffold(<parameters>))}`
 class KoiScaffold extends StatelessWidget {
-  const KoiScaffold({Key? key, required this.routes, required this.themeColor, this.textTheme = null, this.builder = null}) : super(key: key);
+  const KoiScaffold({Key? key, required this.routes, required this.themeColor, this.textTheme = null, this.builder = null, this.spinner = null}) : super(key: key);
+
+  static ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
+
+  /// kalau true, spinner akan ditampilkan. Kalau false spinner tidak tampil
+  static set isLoading(bool value){
+    _isLoading.value = value;
+  }
+
+  //============================================
 
   /// warna dari template aplikasi ini. Warna saat light mode dan dark mode tersimpan di sini
   ///
@@ -27,6 +37,9 @@ class KoiScaffold extends StatelessWidget {
   ///
   /// Terkadang ada library yang perlu ini misalnya: *https://pub.dev/packages/flutter_easyloading*
   final Widget Function(BuildContext, Widget?)? builder;
+
+  /// widget yang ditampilkan sebagai overlay jika sedang loading (variable [isLoading] diset true). Jika null widget [Spinner()] akan ditampilkan
+  final Widget? spinner;
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +64,30 @@ class KoiScaffold extends StatelessWidget {
     }
     //end---buat ThemeData
 
-
+    // TODO, MaterialApp di sini keknya perlu diganti
     return MaterialApp(
-      builder: builder,
       theme: lightTheme,
       darkTheme: darkTheme,
-      routes: routes.getRoutes(),
+      home: Stack(
+        children: [
+          MaterialApp(
+            routes: routes.getRoutes(),
+            builder: builder,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+          ),
+
+          ValueListenableBuilder<bool>(
+            valueListenable: _isLoading,
+            builder: (BuildContext context, bool value, Widget? child){
+              if(value){
+                return spinner ?? Center(child: CircularProgressIndicator(),);
+              }
+              return SizedBox();
+            }
+          ),
+        ],
+      ),
     );
   }
 }

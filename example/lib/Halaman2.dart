@@ -56,6 +56,19 @@ class Halaman2 extends StatelessWidget {
                 onPressed: (){
                   Navigator.of(context).pushNamed("/");
                 },
+              ),
+
+              ElevatedButton(
+                child: Text("Star loading"),
+                onPressed: (){
+                  KoiScaffold.isLoading = true;
+                },
+              ),
+              ElevatedButton(
+                child: Text("End loading"),
+                onPressed: (){
+                  KoiScaffold.isLoading = false;
+                },
               )
             ],
           ),
