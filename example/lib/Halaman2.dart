@@ -32,16 +32,10 @@ class Halaman2 extends StatelessWidget {
           child: ListView(
             children: [
 
-              KoiLayoutResponsive()
-                  .setPhone(Text("Phone"))
-                .setTablet(Text("TRablet"))
-            .setLaptop(Text("laptop"))
-        .setDesktop(Text("desktop")),
-
 
               Text(isWithinRange(197, 1, 10).toString()),
 
-              Text(context.koiSpacing.autoBeetweenPane().toString()),
+              Text(context.koiSpacing.autoBeetweenPane.toString()),
               Text(context.koiSpacing.largest.toString()),
 
               ElevatedButton(

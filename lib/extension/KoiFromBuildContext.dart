@@ -76,7 +76,7 @@ class SpacingSize{
   /// **Nilai yang dikembalikan**
   /// * kalau di mobile, fungsi ini akan mengembalikan nilai [SpacingSize().large]
   /// * selain mobile, fungsi ini akan mengembalikan nilai [SpacingSize().largest]
-  double autoFromScreenEdge(){
+  double get autoFromScreenEdge{
     if(ScreenBreakpoint.getCurrentBreakpoint == ScreenBreakpoints.phone){
       return large;
     }
@@ -90,7 +90,7 @@ class SpacingSize{
   /// **Nilai yang dikembalikan**
   /// * kalau di mobile, fungsi ini akan mengembalikan nilai [SpacingSize().large]
   /// * selain mobile, fungsi ini akan mengembalikan nilai [SpacingSize().largest]
-  double autoBeetweenPane(){
+  double get autoBeetweenPane{
     if(ScreenBreakpoint.getCurrentBreakpoint == ScreenBreakpoints.phone){
       return large;
     }
@@ -121,7 +121,7 @@ class TextStyles{
     else if(size == TextStyleSize.Medium){
       return Theme.of(context).textTheme.bodyMedium ?? TextStyle();
     }
-    else if(size == TextStyleSize.Medium){
+    else if(size == TextStyleSize.Large){
       return Theme.of(context).textTheme.bodyLarge ?? TextStyle();
     }
     else{
@@ -137,7 +137,7 @@ class TextStyles{
     else if(size == TextStyleSize.Medium){
       return Theme.of(context).textTheme.titleMedium ?? TextStyle();
     }
-    else if(size == TextStyleSize.Medium){
+    else if(size == TextStyleSize.Large){
       return Theme.of(context).textTheme.titleLarge ?? TextStyle();
     }
     else{
@@ -153,7 +153,7 @@ class TextStyles{
     else if(size == TextStyleSize.Medium){
       return Theme.of(context).textTheme.headlineMedium ?? TextStyle();
     }
-    else if(size == TextStyleSize.Medium){
+    else if(size == TextStyleSize.Large){
       return Theme.of(context).textTheme.headlineLarge ?? TextStyle();
     }
     else{
@@ -169,7 +169,7 @@ class TextStyles{
     else if(size == TextStyleSize.Medium){
       return Theme.of(context).textTheme.displayMedium ?? TextStyle();
     }
-    else if(size == TextStyleSize.Medium){
+    else if(size == TextStyleSize.Large){
       return Theme.of(context).textTheme.displayLarge ?? TextStyle();
     }
     else{
@@ -185,7 +185,7 @@ class TextStyles{
     else if(size == TextStyleSize.Medium){
       return Theme.of(context).textTheme.labelMedium ?? TextStyle();
     }
-    else if(size == TextStyleSize.Medium){
+    else if(size == TextStyleSize.Large){
       return Theme.of(context).textTheme.labelLarge ?? TextStyle();
     }
     else{

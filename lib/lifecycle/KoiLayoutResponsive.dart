@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:carassius_blueprint/carassius_blueprint.dart';
 import 'package:carassius_blueprint/extension/KoiFromBuildContext.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,7 @@ class KoiLayoutResponsive extends StatelessWidget {
   final Widget? screenLaptop;
   final Widget? screenDesktop;
 
+  /// layar **Extra-small**
   KoiLayoutResponsive setPhone(Widget screen){
     return KoiLayoutResponsive(
       screenPhone: screen,
@@ -31,6 +34,7 @@ class KoiLayoutResponsive extends StatelessWidget {
     );
   }
 
+  /// layar **Small**
   KoiLayoutResponsive setTablet(Widget screen){
     return KoiLayoutResponsive(
         screenPhone: this.screenPhone,
@@ -40,6 +44,7 @@ class KoiLayoutResponsive extends StatelessWidget {
     );
   }
 
+  /// layar **Medium**
   KoiLayoutResponsive setLaptop(Widget screen){
     return KoiLayoutResponsive(
         screenPhone: this.screenPhone,
@@ -49,6 +54,7 @@ class KoiLayoutResponsive extends StatelessWidget {
     );
   }
 
+  /// layar **Large**
   KoiLayoutResponsive setDesktop(Widget screen){
     return KoiLayoutResponsive(
         screenPhone: this.screenPhone,
@@ -58,8 +64,22 @@ class KoiLayoutResponsive extends StatelessWidget {
     );
   }
 
-  Widget _returnFirstNotNull(){
-    return screenPhone ?? screenTablet ?? screenLaptop ?? screenDesktop ?? KoiPageError.ImATeapot();
+  Widget _returnFirstNotNull(BuildContext context){
+
+    if(context.koiBreakpoint == ScreenBreakpoints.phone){
+      return screenPhone ?? screenTablet ?? screenLaptop ?? screenDesktop ?? KoiPageError.NotImplemented(message: "Error, semua breakpoint tidak di set",);
+    }
+    else if(context.koiBreakpoint == ScreenBreakpoints.tablet){
+      return screenTablet ?? screenPhone ?? screenLaptop ?? screenDesktop ?? KoiPageError.NotImplemented(message: "Error, semua breakpoint tidak di set",);
+    }
+    else if(context.koiBreakpoint == ScreenBreakpoints.laptop){
+      return screenLaptop ?? screenTablet ?? screenPhone ?? screenDesktop ?? KoiPageError.NotImplemented(message: "Error, semua breakpoint tidak di set",);
+    }
+    else if(context.koiBreakpoint == ScreenBreakpoints.desktop){
+      return screenDesktop ?? screenLaptop ?? screenTablet ?? screenPhone ?? KoiPageError.NotImplemented(message: "Error, semua breakpoint tidak di set",);
+    }
+
+    throw UnimplementedError("KoiLayoutResponsive, error enum ScreenBreakpoints belum diimplementasikan");
   }
 
   @override
@@ -69,17 +89,6 @@ class KoiLayoutResponsive extends StatelessWidget {
       throw ArgumentError("Semua agrument nilainya null. Paling tidak harus ada 1 widget yang di pass ke agrument widget ini");
     }
 
-    if(context.koiBreakpoint == ScreenBreakpoints.phone){
-      return screenPhone ?? _returnFirstNotNull();
-    }
-    else if(context.koiBreakpoint == ScreenBreakpoints.tablet){
-      return screenTablet ?? _returnFirstNotNull();
-    }
-    else if(context.koiBreakpoint == ScreenBreakpoints.laptop){
-      return screenLaptop ?? _returnFirstNotNull();
-    }
-    else{
-      return screenDesktop ?? _returnFirstNotNull();
-    }
+    return _returnFirstNotNull(context);
   }
 }

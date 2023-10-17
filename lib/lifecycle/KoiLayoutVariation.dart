@@ -3,10 +3,10 @@ import "package:flutter/material.dart";
 
 class KoiLayoutVariation extends StatelessWidget {
 
-  const KoiLayoutVariation({Key? key, this.daftarLayout = const {}, this.showedLayoutKey = const {"showedLayoutKey": null}}): super(key: key);
+  const KoiLayoutVariation({Key? key, this.layoutList = const {}, this.showedLayoutKey = const {"showedLayoutKey": null}}): super(key: key);
 
 
-  final Map<String, Widget> daftarLayout;
+  final Map<String, Widget> layoutList;
   final Map<String, String?> showedLayoutKey;
 
   /// Tambah variasi halaman baru dan key untuk mengakses variasi halaman ini di fungsi [showLayoutWithKey()].
@@ -21,12 +21,11 @@ class KoiLayoutVariation extends StatelessWidget {
   /// **WARNING**
   /// * Kalau [addLayout()] digunakan untuk menambah layout baru dengan key yang sudah ada, fungsi ini akan mereturn error
   KoiLayoutVariation addLayout({required String key, required Widget layout}){
-
-    if(daftarLayout[key] != null){
+    if(layoutList[key] != null){
       throw AssertionError("Key dari layout ini sudah ada. Gunakan key lain..");
     }
 
-    daftarLayout[key] = layout;
+    layoutList[key] = layout;
     return this;
   }
 
@@ -54,7 +53,7 @@ class KoiLayoutVariation extends StatelessWidget {
 
     if(aKey != null){
 
-      var widgetToRet = daftarLayout[aKey];
+      var widgetToRet = layoutList[aKey];
 
       if(widgetToRet != null){
         return widgetToRet;

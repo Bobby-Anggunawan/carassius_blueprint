@@ -1,6 +1,8 @@
 import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
 
+// TODO!! kalau bisa di KoiScaffold juga buat fungsi generate builder untuk spinner supaya orang yang gak pakai KoiScaffold tetap bisa pakai spinnernya
+
 /// Struktur dasar aplikasi, memuat routing, templating, dan lain-lain.
 /// > Cara penggunaannya tinggal masukkan saja ke fungsi **main()** di **main.dart**
 ///

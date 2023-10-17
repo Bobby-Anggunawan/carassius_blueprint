@@ -1,7 +1,7 @@
 extension KoiFromString on String{
 
   /// Kalau misalnya isi string "IkanAsinGoreng", fungsi ini akan mereturn "Ikan Asin Goreng"
-  String koiAddSpaceBetweenEachCapital(){
+  String get koiAddSpaceBetweenEachCapital{
 
     String value = this;
 

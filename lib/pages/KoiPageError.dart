@@ -1,3 +1,4 @@
+import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
 
 enum _ErrorType{
@@ -10,36 +11,38 @@ enum _ErrorType{
 
 class KoiPageError extends StatelessWidget {
 
-  KoiPageError.Forbidden({Key? key, this.errorType = _ErrorType.Forbidden}) : super(key: key);
-  KoiPageError.NotFound({Key? key, this.errorType = _ErrorType.NotFound}) : super(key: key);
-  KoiPageError.NotImplemented({Key? key, this.errorType = _ErrorType.NotImplemented}) : super(key: key);
-  KoiPageError.ImATeapot({Key? key, this.errorType = _ErrorType.ImATeapot}) : super(key: key);
-  KoiPageError.Error({Key? key, this.errorType = _ErrorType.Error}) : super(key: key);
+  KoiPageError.Forbidden({Key? key, this.message}) : errorType = _ErrorType.Forbidden, super(key: key);
+  KoiPageError.NotFound({Key? key, this.message}) : errorType = _ErrorType.NotFound, super(key: key);
+  KoiPageError.NotImplemented({Key? key, this.message}) : errorType = _ErrorType.NotImplemented, super(key: key);
+  KoiPageError.ImATeapot({Key? key, this.message}) : errorType = _ErrorType.ImATeapot, super(key: key);
+  KoiPageError.Error({Key? key, this.message}) : errorType = _ErrorType.Error, super(key: key);
 
   final _ErrorType errorType;
+
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
 
     // APRIL MOP!!!
     if(DateTime.now().month == 4 && DateTime.now().day == 1){
-      return _ErrorImATeapot();
+      return _ErrorImATeapot(message: message,);
     }
 
     else if(errorType == _ErrorType.Forbidden){
-      return _ErrorForbidden();
+      return _ErrorForbidden(message: message,);
     }
     else if(errorType == _ErrorType.NotFound){
-      return _ErrorNotFound();
+      return _ErrorNotFound(message: message,);
     }
     else if(errorType == _ErrorType.NotImplemented){
-      return _ErrorNotImplemented();
+      return _ErrorNotImplemented(message: message,);
     }
     else if(errorType == _ErrorType.ImATeapot){
-      return _ErrorImATeapot();
+      return _ErrorImATeapot(message: message,);
     }
     else if(errorType == _ErrorType.Error){
-      return _Error();
+      return _Error(message: message,);
     }
 
     throw RangeError("KoiPageError: errorType tidak dikenali");
@@ -47,66 +50,206 @@ class KoiPageError extends StatelessWidget {
 }
 
 class _ErrorForbidden extends StatelessWidget {
-  const _ErrorForbidden({Key? key}) : super(key: key);
+  const _ErrorForbidden({Key? key, required this.message}) : super(key: key);
+
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Error 403: Forbidden"),
-      ),
+      body: Padding(
+        padding: EdgeInsets.all(context.koiSpacing.autoFromScreenEdge),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Flex(
+              direction: Axis.vertical,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Error 403: Forbidden",
+                  style: context.koiThemeText.display(size: TextStyleSize.Large),
+                ),
+
+                Padding(padding: EdgeInsets.only(top: context.koiSpacing.autoBeetweenPane)),
+
+                Builder(builder: (context){
+                  if(message != null){
+                    return Text(
+                      message!,
+                      style: context.koiThemeText.display(size: TextStyleSize.Small),
+                    );
+                  }
+                  return Container();
+                })
+              ],
+            ),
+          ),
+        ),
+      )
     );
   }
 }
 
 class _ErrorNotFound extends StatelessWidget {
-  const _ErrorNotFound({Key? key}) : super(key: key);
+  const _ErrorNotFound({Key? key, required this.message}) : super(key: key);
+
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Error 404: Not Found"),
-      ),
+        body: Padding(
+          padding: EdgeInsets.all(context.koiSpacing.autoFromScreenEdge),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Flex(
+                direction: Axis.vertical,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Error 404: Not Found",
+                    style: context.koiThemeText.display(size: TextStyleSize.Large),
+                  ),
+
+                  Padding(padding: EdgeInsets.only(top: context.koiSpacing.autoBeetweenPane)),
+
+                  Builder(builder: (context){
+                    if(message != null){
+                      return Text(
+                        message!,
+                        style: context.koiThemeText.display(size: TextStyleSize.Small),
+                      );
+                    }
+                    return Container();
+                  })
+                ],
+              ),
+            ),
+          ),
+        )
     );
   }
 }
 
 class _ErrorNotImplemented extends StatelessWidget {
-  const _ErrorNotImplemented({Key? key}) : super(key: key);
+  const _ErrorNotImplemented({Key? key, required this.message}) : super(key: key);
+
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Error 501: Not Implemented"),
-      ),
+        body: Padding(
+          padding: EdgeInsets.all(context.koiSpacing.autoFromScreenEdge),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Flex(
+                direction: Axis.vertical,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Error 501: Not Implemented",
+                    style: context.koiThemeText.display(size: TextStyleSize.Large),
+                  ),
+
+                  Padding(padding: EdgeInsets.only(top: context.koiSpacing.autoBeetweenPane)),
+
+                  Builder(builder: (context){
+                    if(message != null){
+                      return Text(
+                        message!,
+                        style: context.koiThemeText.display(size: TextStyleSize.Small),
+                      );
+                    }
+                    return Container();
+                  })
+                ],
+              ),
+            ),
+          ),
+        )
     );
   }
 }
 
 class _ErrorImATeapot extends StatelessWidget {
-  const _ErrorImATeapot({Key? key}) : super(key: key);
+  const _ErrorImATeapot({Key? key, required this.message}) : super(key: key);
+
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Error 418: Don't mind me.. I'm a teapot."),
-      ),
+        body: Padding(
+          padding: EdgeInsets.all(context.koiSpacing.autoFromScreenEdge),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Flex(
+                direction: Axis.vertical,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Error 418: Don't mind me.. I'm a teapot.",
+                    style: context.koiThemeText.display(size: TextStyleSize.Large),
+                  ),
+
+                  Padding(padding: EdgeInsets.only(top: context.koiSpacing.autoBeetweenPane)),
+
+                  Builder(builder: (context){
+                    if(message != null){
+                      return Text(
+                        message!,
+                        style: context.koiThemeText.display(size: TextStyleSize.Small),
+                      );
+                    }
+                    return Container();
+                  })
+                ],
+              ),
+            ),
+          ),
+        )
     );
   }
 }
 
 class _Error extends StatelessWidget {
-  const _Error({Key? key}) : super(key: key);
+  const _Error({Key? key, required this.message}) : super(key: key);
+
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Error 500: Internal Server Error"),
-      ),
+        body: Padding(
+          padding: EdgeInsets.all(context.koiSpacing.autoFromScreenEdge),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Flex(
+                direction: Axis.vertical,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Error!!",
+                    style: context.koiThemeText.display(size: TextStyleSize.Large),
+                  ),
+
+                  Padding(padding: EdgeInsets.only(top: context.koiSpacing.autoBeetweenPane)),
+
+                  Builder(builder: (context){
+                    if(message != null){
+                      return Text(
+                        message!,
+                        style: context.koiThemeText.display(size: TextStyleSize.Small),
+                      );
+                    }
+                    return Container();
+                  })
+                ],
+              ),
+            ),
+          ),
+        )
     );
   }
 }
