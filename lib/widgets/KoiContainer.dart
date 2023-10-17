@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 
+import "../extension/KoiFromBuildContext.dart";
+
 /// container untuk widget lain. Seperti class [Container()] di [material.dart], bedanya ini sudah digabung dengan widget penting lain seperi [AspectRatio()] dan [Material()] agar pembuatan layout lebih cepat dan lebih tertata
 ///
 /// **Note**
@@ -7,6 +9,18 @@ import "package:flutter/material.dart";
 /// > jika parameter [ratio] diisi, hanya salahsatu [width] atau [height] yang perlu di set, yang lainnya yang null akan otomatis menyesuaikan ukuran berdasarkan parameter [ratio]
 class KoiContainer extends StatelessWidget {
   const KoiContainer({Key? key, this.width, this.height, this.ratio, required this.child, this.type = MaterialType.canvas, this.elevation = 0, this.borderRadius, this.margin, this.padding, this.color, this.alignment = Alignment.center}) : super(key: key);
+
+  /// Constructor membuat card.
+  ///
+  /// Constructor ini akan memberi nilai default ke [type], [margin], [borderRadius] sesuai saran material design pada
+  ///
+  /// *https://m3.material.io/components/cards/specs*
+  KoiContainer.card({Key? key, this.width, this.height, this.ratio, required this.child, MaterialType? type, this.elevation = 1, BorderRadiusGeometry? borderRadius, EdgeInsetsGeometry? margin, this.padding, this.color, this.alignment = Alignment.center}):
+        margin = margin ?? EdgeInsets.all(SpacingSize().large),
+        borderRadius = borderRadius ?? BorderRadius.circular(SpacingSize().medium),
+        type = type ?? MaterialType.card,
+        super(key: key);
+
 
   final double? width;
   final double? height;
@@ -73,6 +87,14 @@ class Ratio{
   /// misalnya ratio 16:9 (landscape), isi dengan
   ///
   /// *Ratio(width:16, height:9)*
+  ///
+  /// **Constructor lain:**
+  /// * Ratio.Square()
+  /// * Ratio.LandscapeLong()
+  /// * Ratio.LandscapeMedium()
+  /// * Ratio.LandscapeShort()
+  /// * Ratio.PortraitShort()
+  /// * Ratio.PortraitTall()
   Ratio({required this.width, required this.height});
 
   /// sama dengan 1:1

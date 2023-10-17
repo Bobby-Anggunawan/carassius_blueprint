@@ -37,38 +37,39 @@ extension KoiFromBuildContext on BuildContext{
 /// * https://m3.material.io/foundations/layout/understanding-layout/spacing#64eb2223-f5e8-4d2a-9edc-9e3a7002220a
 /// * https://m2.material.io/design/layout/spacing-methods.html#baseline-grid
 class SpacingSize{
-  /// padding terkecil. Biasa untuk tambah padding ke komponen yang tidak perlu pading yang terlihat tapi tidak mau dempet sama elemen lain
+  /// nilainya 4, padding terkecil. Biasa untuk tambah padding ke komponen yang tidak perlu pading yang terlihat tapi tidak mau dempet sama elemen lain
   ///
   /// **Contoh Penggunaan**
   /// * Widget Avatar(foto profil)
   final double smallest = 4;
 
-  /// Biasa digunakan untuk padding dari komponen-komponen di dalam sebuah widget yang merupakan satu kesatuan yang tidak dapat dipisah
+  /// nilainya 8, biasa digunakan untuk padding dari komponen-komponen di dalam sebuah widget yang merupakan satu kesatuan yang tidak dapat dipisah
   ///
   /// **Contoh Penggunaan**
+  /// * Padding antar tiap card: https://m3.material.io/components/cards/specs#9abbced9-d5d3-4893-9a67-031825205f06
   /// * Padding vertical(atas bawah) dalam widget [TextField()] yang memisahkan label dengan border atas dan bawahnya
   final double small = 8;
 
-  /// Biasa digunakan untuk padding dari komponen-komponen di dalam sebuah widget yang merupakan satu kesatuan yang tidak dapat dipisah dan padding [small] atau padding 8 masih terlalu kecil
+  /// nilainya 12, biasa digunakan untuk padding dari komponen-komponen di dalam sebuah widget yang merupakan satu kesatuan yang tidak dapat dipisah dan padding [small] atau padding 8 masih terlalu kecil
   ///
   /// **Contoh Penggunaan**
   /// * Padding antara label dan border terluar sebuah [Button]
   final double medium = 12;
 
-  /// Padding antara widget. Biasa digunakan oleh perangkat layar kecil seperti mobile
+  /// nilainya 16, padding antara panel/widget dengan konteks berbeda. Biasa digunakan oleh perangkat layar kecil seperti mobile
   ///
   /// **Contoh Penggunaan**
   /// * Padding antara tepi layar dan widget pada mobile
-  /// * Padding antara card 1 dan card lainnya
-  /// * Padding antara item di listview
+  /// * Padding antar paragraf
+  /// * Padding antar tombol
   final double large = 16;
 
-  /// Padding antara widget. Biasa digunakan oleh perangkat layar besar seperti desktop
+  /// nilainya 24, padding antara panel/widget dengan konteks berbeda. Biasa digunakan oleh perangkat layar besar seperti desktop
   ///
   /// **Contoh Penggunaan**
   /// * Padding antara tepi layar dan widget pada desktop
-  /// * Padding antara card 1 dan card lainnya
-  /// * Padding antara item di listview
+  /// * Padding antar paragraf
+  /// * Padding antar tombol
   final double largest = 24;
 
   /// Otomatis pilih nilai padding antara ujung layar dan widget sesuai saran material design
@@ -97,6 +98,18 @@ class SpacingSize{
     else{
       return largest;
     }
+  }
+
+  /// padding antar card atau item di listview
+  ///
+  /// **Nilai yang dikembalikan**
+  /// * small atau 8
+  ///
+  /// **Sumber**
+  ///
+  /// *https://m3.material.io/components/cards/specs#9abbced9-d5d3-4893-9a67-031825205f06*
+  double get autoBetweenCard{
+    return small;
   }
 }
 

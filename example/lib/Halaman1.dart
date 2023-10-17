@@ -11,6 +11,8 @@ class Halaman1 extends StatelessWidget {
       body: ListView(
         children: [
 
+          KoiContainer.card(child: Text("IKAN ASIN")),
+
           Text("ikan asin", style: context.koiThemeText.display().copyWith(color: context.koiThemeColor.error),),
 
           KoiContainer(

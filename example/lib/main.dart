@@ -11,9 +11,9 @@ void main() {
       KoiScaffold(
         themeColor: ThemeColor.autoGenerateFromColor(Colors.deepOrange),
         routes: KoiScaffoldRoute
-            .baseRoute(Scaffold(body: HalamanResponsive(),))
+            //.baseRoute(Scaffold(body: HalamanResponsive(),))
             //.baseRoute(KoiPageError.Forbidden(message: "Ini test",))
-            //.baseRoute(Halaman1())
+            .baseRoute(Halaman1())
             .addRoutes("/halaman2", Halaman2())
             .addRoutes("/halaman3", Scaffold(
               appBar: AppBar(title: Text("Halaman 3"),),
