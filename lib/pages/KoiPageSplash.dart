@@ -11,6 +11,12 @@ import "package:video_player/video_player.dart";
 class KoiPageSplash extends StatefulWidget {
   const KoiPageSplash({Key? key, this.content, this.initialization, this.redirectTo, this.redirectAfter}) : super(key: key);
 
+  /// redirect ke dalam aplikasi setelah sekian detik
+  const KoiPageSplash.redirectAfterSecond({Key? key, required int redirectAfter, required String redirectTo, this.content}) : initialization = null, redirectAfter = redirectAfter, redirectTo = redirectTo, super(key: key);
+
+  /// redirect ke dalam aplikasi setelah fungsi ini selesai
+  const KoiPageSplash.redirectAfterFunction({Key? key, required Future<void> Function(BuildContext context) initialization, required String redirectTo, this.content}) : redirectAfter = 0, redirectTo = redirectTo, initialization = initialization, super(key: key);
+
   /// apa yang ditampilkan selama splash screen. Jika ini null, maka widget default akan ditampilkan
   final Widget? content;
 
