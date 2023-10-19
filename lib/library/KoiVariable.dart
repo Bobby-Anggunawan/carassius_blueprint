@@ -17,4 +17,18 @@ class KoiVariable{
 
     return size.width;
   }
+
+  /// tinggi window/layar tempat aplikasi ini berada dalam satuan dp.
+  ///
+  /// > Sebenarnya sama dengan **[MediaQuery.of(context).size.height]**, hanya saja yang ini tidak perlu context.
+  ///
+  /// **Sumber**
+  ///
+  /// *https://stackoverflow.com/questions/49553402/how-to-determine-screen-height-and-width*
+  static double get windowHeightDP{
+    FlutterView view = WidgetsBinding.instance.platformDispatcher.views.first;
+    Size size = view.physicalSize / view.devicePixelRatio;
+
+    return size.height;
+  }
 }

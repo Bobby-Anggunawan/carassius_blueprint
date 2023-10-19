@@ -1,3 +1,4 @@
+import 'package:carassius_blueprint/pages/KoiPageSplash.dart';
 import 'package:example/Halaman1.dart';
 import 'package:example/Halaman2.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,17 @@ void main() {
         routes: KoiScaffoldRoute
             //.baseRoute(Scaffold(body: HalamanResponsive(),))
             //.baseRoute(KoiPageError.Forbidden(message: "Ini test",))
-            .baseRoute(Halaman1())
+            .baseRoute(KoiPageSplash(redirectTo: "/halaman2", initialization: (context)async{
+
+              print("Start wait at ${DateTime.now()}");
+              await Future.delayed(Duration(seconds: 5));
+              print("End wait at ${DateTime.now()}");
+
+              var result = await KoiHttp.basicRequest("https://api.coindesk.com/v1/bpi/currentprice.json", null, RequestMethod.GET, null, null);
+
+              print(result["disclaimer"]);
+            },))
+            //.baseRoute(Halaman1())
             .addRoutes("/halaman2", Halaman2())
             .addRoutes("/halaman3", Scaffold(
               appBar: AppBar(title: Text("Halaman 3"),),
