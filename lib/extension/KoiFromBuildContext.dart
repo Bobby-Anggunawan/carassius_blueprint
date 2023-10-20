@@ -111,6 +111,31 @@ class SpacingSize{
   double get autoBetweenCard{
     return small;
   }
+
+  /// generate widget padding
+  ///
+  /// **Parameter**
+  /// * direction : arah padding
+  /// * value : nilai dari padding. Nilai defaultnya setara getter [autoBeetweenPane]
+  Padding generatePadding({
+    required Axis direction,
+    double? value
+  }){
+    if(value == null){
+      value = this.autoBeetweenPane;
+    }
+
+    double vertical = 0;
+    double horizontal = 0;
+    if(direction == Axis.horizontal){
+      horizontal = value;
+    }
+    else{
+      vertical = value;
+    }
+
+    return Padding(padding: EdgeInsets.only(left: horizontal, top: vertical));
+  }
 }
 
 class TextStyles{
