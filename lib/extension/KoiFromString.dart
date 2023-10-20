@@ -15,4 +15,14 @@ extension KoiFromString on String{
 
     return ret;
   }
+
+  /// apa string ini mengandung character lain selain whitespace (spaces, tabs atau line breaks)
+  bool get koiIsOnlyWhitespace{
+    if(this.trim().isEmpty){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }
