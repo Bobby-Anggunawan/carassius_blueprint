@@ -30,10 +30,10 @@ extension KoiFromDateTime on DateTime{
   /// Dengan parameter default, returnnya akan seperti **08:00**, karena showSecond == false. Note, jika angka kurang dari 10, 0 akan otomatis ditambah di belakang jadi nilainya selalu 2 digit
   String koiStringOnlyTime({String separator = ":", bool showSecond = false}){
     if(showSecond){
-      return "${this.hour.koiToXDigit}${separator}${this.minute.koiToXDigit}${separator}${this.second.koiToXDigit}";
+      return "${this.hour.koiToXDigit()}${separator}${this.minute.koiToXDigit()}${separator}${this.second.koiToXDigit()}";
     }
     else{
-      return "${this.hour.koiToXDigit}${separator}${this.minute.koiToXDigit}";
+      return "${this.hour.koiToXDigit()}${separator}${this.minute.koiToXDigit()}";
     }
   }
 

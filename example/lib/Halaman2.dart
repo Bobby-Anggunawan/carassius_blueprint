@@ -33,6 +33,8 @@ class Halaman2 extends StatelessWidget {
             children: [
 
 
+              Text(DateTime.now().koiStringOnlyTime()),
+
               Text(isWithinRange(197, 1, 10).toString()),
 
               Text(context.koiSpacing.autoBeetweenPane.toString()),
