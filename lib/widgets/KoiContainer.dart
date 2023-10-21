@@ -95,20 +95,20 @@ class Ratio{
   /// * Ratio.LandscapeShort()
   /// * Ratio.PortraitShort()
   /// * Ratio.PortraitTall()
-  Ratio({required this.width, required this.height});
+  const Ratio({required this.width, required this.height});
 
   /// sama dengan 1:1
-  Ratio.Square(): width = 1, height = 1;
+  const Ratio.Square(): width = 1, height = 1;
   /// sama dengan 16:9
-  Ratio.LandscapeLong(): width = 16, height = 9;
+  const Ratio.LandscapeLong(): width = 16, height = 9;
   /// sama dengan 3:2
-  Ratio.LandscapeMedium(): width = 3, height = 2;
+  const Ratio.LandscapeMedium(): width = 3, height = 2;
   /// sama dengan 4:3
-  Ratio.LandscapeShort(): width = 4, height = 3;
+  const Ratio.LandscapeShort(): width = 4, height = 3;
   /// sama dengan 3:4
-  Ratio.PortraitShort(): width = 3, height = 4;
+  const Ratio.PortraitShort(): width = 3, height = 4;
   /// sama dengan 2:3
-  Ratio.PortraitTall(): width = 2, height = 3;
+  const Ratio.PortraitTall(): width = 2, height = 3;
 
 
   final int width;

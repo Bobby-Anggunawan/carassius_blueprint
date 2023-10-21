@@ -75,4 +75,22 @@ extension KoiFromList<T> on List<T>{
 
     return thisList;
   }
+
+
+  /// remove semua nilai null dari list ini. Berguna di widget seperti [Row] dan [Column].
+  /// > Misalnya ada widget yang hanya ditampilkan jika tidak null, biasanya di tiap widget harus di wrap dengan widget [Builder] dan di cek apa null atau tidak. Kalau null tampilkan widget [Container] atau [SizedBox]. Dengan getter ini, tidak perlu lagi menulis builder, tinggal masukkan saja ke dalam colomn
+  ///
+  /// **Contoh**
+  ///
+  /// *Row(children: |Text(), null, Text()|.koiRemoveNull())*
+  List<U> koiRemoveNull<U>(){
+    List<U> toReturn = [];
+    this.forEach((element) {
+      if(element != null){
+        toReturn.add(element as U);
+      }
+    });
+
+    return toReturn;
+  }
 }

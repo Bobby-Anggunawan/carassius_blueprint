@@ -27,11 +27,45 @@ class Halaman2 extends StatelessWidget {
       appBar: AppBar(title: Text("Halaman 2"),),
       body: Container(
         child: Container(
-          width: 100,
+          width: 400,
           color: Colors.blue,
           child: ListView(
             children: [
 
+              KoiCard(
+                  header: ListTile(title: Text("Ayam"), subtitle: Text("Jantan warna hitam"),),
+                  media: Image.network(
+                      'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif'),
+                  content: Text("Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet"),
+                  action: [
+                    TextButton(onPressed: (){}, child: Text("Cancel")),
+                    TextButton(onPressed: (){}, child: Text("Ok")),
+                  ],
+                  orientation: Orientation.portrait,
+              ),
+              KoiCard(
+                height: 130,
+                header: ListTile(title: Text("Ayam"), subtitle: Text("Jantan warna hitam"),),
+                media: Image.network(
+                    'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif'),
+                content: Text("Lorem ipsum dolor sit amet."),
+                action: [
+                  TextButton(onPressed: (){}, child: Text("Cancel")),
+                  TextButton(onPressed: (){}, child: Text("Ok")),
+                ],
+                orientation: Orientation.landscape,
+              ),
+              KoiCard(
+                header: null,
+                media: Image.network(
+                    'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif'),
+                content: Text("Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet"),
+                action: [
+                  TextButton(onPressed: (){}, child: Text("Cancel")),
+                  TextButton(onPressed: (){}, child: Text("Ok")),
+                ],
+                orientation: Orientation.portrait,
+              ),
 
               Text(DateTime.now().koiStringOnlyTime()),
 
