@@ -95,7 +95,7 @@ class KoiCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if(orientation == Orientation.landscape){
-      if(height == null && (ratio == null && width == null)){
+      if(height == null && (ratio == null && width == null) && media != null){
         throw AssertionError("Kalau card landscape, sebaiknya height diisi biar gak overflow :)");
       }
     }
@@ -136,19 +136,24 @@ class KoiCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: headerPadding, vertical: headerPadding),
                 child: header,
               ),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: mediaPadding),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(SpacingSize().medium),
-                    child: AspectRatio(
-                      aspectRatio: ratioMediaPortrait.getRatio(),
-                      child: FittedBox(
-                        child: media,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  )
-              ),
+              Builder(builder: (context){
+                if(media != null){
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: mediaPadding ?? 0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(SpacingSize().medium),
+                        child: AspectRatio(
+                          aspectRatio: ratioMediaPortrait.getRatio(),
+                          child: FittedBox(
+                            child: media,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      )
+                  );
+                }
+                return SizedBox();
+              }),
               Padding(
                 padding: EdgeInsets.all(context.koiSpacing.large),
                 child: content,
@@ -176,48 +181,54 @@ class KoiCard extends StatelessWidget {
             mainAxisSize: (width == null && ratio == null) ? MainAxisSize.min : MainAxisSize.max,
             children: [
 
-              ClipRRect(
-                borderRadius: BorderRadius.circular(SpacingSize().medium),
-                child: AspectRatio(
-                  aspectRatio: ratioMediaLandscape.getRatio(),
-                  child: FittedBox(
-                    child: media,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              Flexible(
-                flex: 3,
-                child: Column(
-                  mainAxisSize: (height == null && ratio == null) ? MainAxisSize.min : MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    Builder(builder: (context){
-                      if(headerPadding == 0 && header == null){
-                        return SizedBox();
-                      }
-                      else{
-                        return Padding(padding: EdgeInsets.only(top: context.koiSpacing.small));
-                      }
-                    }),
-
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: headerPadding, vertical: headerPadding),
-                      child: header,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(context.koiSpacing.large, 0, context.koiSpacing.large, context.koiSpacing.large),
-                      child: content,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: context.koiSpacing.large, right: context.koiSpacing.large, bottom: context.koiSpacing.largest),
-                      child: Row(
-                        mainAxisAlignment: actionAlignment,
-                        children: action,
+              Builder(builder: (context){
+                if(media != null){
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(SpacingSize().medium),
+                    child: AspectRatio(
+                      aspectRatio: ratioMediaLandscape.getRatio(),
+                      child: FittedBox(
+                        child: media,
+                        fit: BoxFit.fill,
                       ),
-                    )
-                  ],
+                    ),
+                  );
+                }
+                return SizedBox();
+              }),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: (height == null && ratio == null) ? MainAxisSize.min : MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Builder(builder: (context){
+                        if(headerPadding == 0 && header == null){
+                          return SizedBox();
+                        }
+                        else{
+                          return Padding(padding: EdgeInsets.only(top: context.koiSpacing.small));
+                        }
+                      }),
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: headerPadding, vertical: headerPadding),
+                        child: header,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(context.koiSpacing.large, 0, context.koiSpacing.large, context.koiSpacing.large),
+                        child: content,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: context.koiSpacing.large, right: context.koiSpacing.large, bottom: context.koiSpacing.largest),
+                        child: Row(
+                          mainAxisAlignment: actionAlignment,
+                          children: action,
+                        ),
+                      )
+                    ],
+                  ),
                 )
               )
             ],
