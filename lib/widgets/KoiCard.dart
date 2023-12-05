@@ -1,5 +1,3 @@
-import "dart:js";
-
 import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
 
