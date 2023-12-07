@@ -100,7 +100,7 @@ class Halaman2 extends StatelessWidget {
                   KoiScaffold.isLoading = false;
                 },
               )
-            ],
+            ].koiAddSpacing(axis: Axis.vertical),
           ),
         ),
       ),
