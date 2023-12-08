@@ -99,6 +99,12 @@ class Halaman2 extends StatelessWidget {
                 onPressed: (){
                   KoiScaffold.isLoading = false;
                 },
+              ),
+              ElevatedButton(
+                  child: Text("Show Toast"),
+                  onPressed: (){
+                    KoiScaffold.showToast("Ini adalah pesan toast dari HALAMAN 2");
+                  }
               )
             ].koiAddSpacing(axis: Axis.vertical),
           ),

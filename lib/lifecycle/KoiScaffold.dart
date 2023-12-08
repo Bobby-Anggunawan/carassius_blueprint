@@ -16,11 +16,45 @@ import "package:flutter/material.dart";
 class KoiScaffold extends StatelessWidget {
   const KoiScaffold({Key? key, required this.routes, required this.themeColor, this.textTheme = null, this.builder = null, this.spinner = null}) : super(key: key);
 
-  static ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
+  static ValueNotifier<bool> _isLoading = ValueNotifier(false);
+  //start-digunakan toast
+  static ValueNotifier<bool> _isShowToast = ValueNotifier(false);
+  static ValueNotifier<String> _toastMessage = ValueNotifier("None");
+  //end---digunakan toast
 
   /// kalau true, spinner akan ditampilkan. Kalau false spinner tidak tampil
   static set isLoading(bool value){
     _isLoading.value = value;
+  }
+
+  /// menampilkan toast
+  ///
+  /// **Parameter**
+  /// * [message] : pesan yang ditampilkan di toast
+  /// * [duration] : berapa detik toast akan ditampilakan. Default 3 detik
+  ///
+  /// **Ketentuan**
+  /// * fungsi ini hanya bisa berjalan jika sedang tidak ada toast yang ditampilkan. Jiak toast masih ditampilkan, fungsi ini akan diabaikan
+  ///
+  /// **WARNING**
+  /// * kalau duration < 1, fungsi ini akan mereturn error
+  static void showToast(String message, {int duration = 3}){
+
+    // validasi error
+    if(duration < 1){
+      throw ArgumentError("duration toast minimal 1 detik, tidak boleh kurang");
+    }
+
+    // menampilkan toast
+    if(_isShowToast.value == false){
+      _toastMessage.value = message;
+      _isShowToast.value = true;
+
+      // menyembunyikan toast setelah [duration] detik
+      Future.delayed(Duration(seconds: duration), (){
+        _isShowToast.value = false;
+      });
+    }
   }
 
   //============================================
@@ -77,6 +111,7 @@ class KoiScaffold extends StatelessWidget {
         return Stack(
           children: [
             child!,
+            //DISINI LETAK SPINNERNYA
             ValueListenableBuilder<bool>(
                 valueListenable: _isLoading,
                 builder: (BuildContext context, bool value, Widget? child){
@@ -85,6 +120,34 @@ class KoiScaffold extends StatelessWidget {
                   }
                   return SizedBox();
                 }
+            ),
+            //DISINI LETAK TOASTNYA
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ValueListenableBuilder<bool>(
+                  valueListenable: _isShowToast,
+                  builder: (BuildContext context, bool value, Widget? child){
+                    if(value){
+                      return Material(
+                        child: Container(
+                          padding: EdgeInsets.all(context.koiSpacing.medium),
+                          margin: EdgeInsets.only(bottom: context.koiSpacing.largest),
+                          decoration: BoxDecoration(
+                            color: context.koiThemeColor.secondary,
+                            borderRadius: BorderRadius.circular(context.koiSpacing.smallest)
+                          ),
+                          child: Text(
+                            _toastMessage.value,
+                            style: TextStyle(
+                              color: context.koiThemeColor.onSecondary
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  }
+              ),
             ),
           ],
         );
