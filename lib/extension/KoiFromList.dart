@@ -96,6 +96,48 @@ extension KoiFromList<T> on List<T>{
 
     return toReturn;
   }
+
+  /// menambah element ini ke list ini jika isi list kosong.
+  /// > misalnya di listview, bisa pakai fungsi ini untuk menampilkan test "data kosong" jika isi list sedang kosong
+  ///
+  /// **Parameter**
+  /// * [elementIfEmpty] : element yang akan ditambah ke list ini jika data kosong
+  ///
+  /// **Ketentuan**
+  /// * jika list kosong: akan mengembalikan list baru dengan isi 1 item dari parameter [elementIfEmpty]
+  /// * jika list tidak kosong: akan mengembalikan list aslinya
+  List<T> koiAddIfEmpty(T elementIfEmpty){
+    if(this.isEmpty){
+      return [elementIfEmpty];
+    }
+    return this;
+  }
+
+  /// menambah item diantara element dalam list ini. Sama dengan [KoiFromListWidget.koiAddSpacing()] bedanya ini tidak hanya untuk list widget saja
+  ///
+  /// **Parameter**
+  /// * [elementToAdd]: item yang ingin disisipkan di tiap element dalam list ini
+  ///
+  /// **Contoh**
+  /// >> misalnya list alist = |"1", "2", "3"|
+  ///
+  /// *alist.koiAddBetweenElement(",")*
+  ///
+  /// > returnnya |"1", ",", "2", ",", "3"|
+  List<T> koiAddBetweenElement(T elementToAdd){
+    //start-tambah spacing
+    List<T> ret = [];
+    this.forEach((element) {
+      ret.add(element);
+      ret.add(elementToAdd);
+    });
+
+    //hapus sizebox terakhir
+    ret.removeLast();
+    //end---tambah spacing
+
+    return ret;
+  }
 }
 
 extension KoiFromListWidget on List<Widget>{
@@ -127,6 +169,9 @@ extension KoiFromListWidget on List<Widget>{
       ret.add(element);
       if(axis == Axis.vertical){
         ret.add(SizedBox(height: spacing,));
+      }
+      else{
+        ret.add(SizedBox(width: spacing,));
       }
     });
 
