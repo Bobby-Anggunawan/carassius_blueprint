@@ -114,6 +114,7 @@ extension KoiFromList<T> on List<T>{
   }
 
   /// menambah item diantara element dalam list ini. Sama dengan [KoiFromListWidget.koiAddSpacing()] bedanya ini tidak hanya untuk list widget saja
+  /// > tips.. Spacing default listview = 8
   ///
   /// **Parameter**
   /// * [elementToAdd]: item yang ingin disisipkan di tiap element dalam list ini
@@ -130,49 +131,6 @@ extension KoiFromList<T> on List<T>{
     this.forEach((element) {
       ret.add(element);
       ret.add(elementToAdd);
-    });
-
-    //hapus sizebox terakhir
-    ret.removeLast();
-    //end---tambah spacing
-
-    return ret;
-  }
-}
-
-extension KoiFromListWidget on List<Widget>{
-  /// menambah spacing di list widget misalnya untuk di [Row()] atau [Column()] atau [ListView()]
-  ///
-  /// **Parameter**
-  /// * [spacing]: besar spacing yang diinginkan. Kalau null, nilainya akan otomatis terisi 8
-  /// * [axis]: apa pading ke kiri kanan atau atas bawah
-  ///
-  /// **Ketentuan**
-  /// * kalau parameter [spacing] nilainya null, nilai ini akan diganti dengan 8 sesuai dengan saran dari: https://m3.material.io/components/cards/specs#9abbced9-d5d3-4893-9a67-031825205f06
-  ///
-  /// **WARNING**
-  /// * kalau nilai parameter [spacing] kurang dari 0.1, fungsi akan mengembalikan error
-  List<Widget> koiAddSpacing({double? spacing, required Axis axis}){
-
-    if(spacing != null && spacing < 0.1){
-      throw ArgumentError("Parameter spacing harus bernilai lebih besar dari 0.1");
-    }
-
-    // set default value
-    if(spacing == null){
-      spacing = 8;
-    }
-
-    //start-tambah spacing
-    List<Widget> ret = [];
-    this.forEach((element) {
-      ret.add(element);
-      if(axis == Axis.vertical){
-        ret.add(SizedBox(height: spacing,));
-      }
-      else{
-        ret.add(SizedBox(width: spacing,));
-      }
     });
 
     //hapus sizebox terakhir

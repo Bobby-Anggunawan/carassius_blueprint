@@ -106,7 +106,7 @@ class Halaman2 extends StatelessWidget {
                     KoiScaffold.showToast("Ini adalah pesan toast dari HALAMAN 2");
                   }
               )
-            ].koiAddSpacing(axis: Axis.vertical),
+            ].koiAddBetweenElement(SizedBox(height: 8,)),
           ),
         ),
       ),
