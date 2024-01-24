@@ -9,9 +9,26 @@ class Halaman3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: KoiDataTable(
+
+        borderInnerVertical: BorderSide(
+            color: Colors.blue,
+            width: 1
+        ),
+        borderInnerHorizontal: BorderSide(
+            color: Colors.red,
+            width: 1
+        ),
+
+        borderOuter: BorderSide(
+            color: Colors.green,
+            width: 1
+        ),
+
         columns: [
           KoiDataTableColumn(
-            title: Text("satu")
+            title: Text("satu"),
+            canSort: true,
+            size: 150
           ),
           KoiDataTableColumn(
               title: Text("dua")
@@ -32,7 +49,7 @@ class Halaman3 extends StatelessWidget {
           [Text("6"), Text("2"), Text("3"), Text("4"),],
           [Text("7"), Text("2"), Text("3"), Text("4"),],
           [Text("8"), Text("2"), Text("3"), Text("4"),],
-          [Text("9"), Text("2"), Text("3"), Text("4"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
         ],
       ),
     );
