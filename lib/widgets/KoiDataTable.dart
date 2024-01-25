@@ -40,6 +40,7 @@ class KoiDataTable extends StatelessWidget {
     this.rowMinHeight = 52,
     this.headerMinHeight = 56,
     this.columnMinWidth = 100,
+    this.columnMaxWidth = 300,
     this.cellContentAlignment = Alignment.centerLeft,
     this.borderInnerVertical = BorderSide.none,
     this.borderInnerHorizontal = const BorderSide(color: Colors.black),
@@ -60,6 +61,9 @@ class KoiDataTable extends StatelessWidget {
   /// lebar minimum suatu kolom(kalau kolom di asignt otomatis/size dibiarkan null)
   /// Note, nilai 100 dariku sendiri
   final double columnMinWidth;
+  /// lebar maksimum suatu kolom(kalau kolom di asignt otomatis/size dibiarkan null)
+  /// Note, nilai 300 dariku sendiri
+  final double columnMaxWidth;
 
   /// spacing antar kolom. Default **16** dapat dari:
   ///
@@ -131,6 +135,10 @@ class KoiDataTable extends StatelessWidget {
           // apply min width
           if(maxRowSize < columnMinWidth){
             columns[x].assignedColumn = columnMinWidth;
+          }
+          // apply max width
+          else if(maxRowSize > columnMaxWidth){
+            columns[x].assignedColumn = columnMaxWidth;
           }
           else{
             columns[x].assignedColumn = maxRowSize;
