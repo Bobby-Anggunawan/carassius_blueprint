@@ -110,32 +110,33 @@ class KoiDataTable extends StatelessWidget {
   void assignColumnSize(BuildContext context){
     for(int x=0; x< row[0].length; x++){
       double maxRowSize = 0;
-      for(int y =0; y< row.length; y++){
-        if(row[y][x] is Text){
-          var containText = row[y][x] as Text;
-          print("texText ${x}: ${containText.data!}");
-          if(containText.data != null){
-            var tempMaxRowSize = KoiWidgetHelper.Text.getSize(containText.data!, containText.style ?? DefaultTextStyle.of(context).style).width;
-            if(tempMaxRowSize> maxRowSize){
-              maxRowSize = tempMaxRowSize;
+
+      if(columns[x].size == null){
+        for(int y =0; y< row.length; y++){
+          if(row[y][x] is Text){
+            var containText = row[y][x] as Text;
+            if(containText.data != null){
+              var tempMaxRowSize = KoiWidgetHelper.Text.getSize(containText.data!, containText.style ?? DefaultTextStyle.of(context).style).width;
+              if(tempMaxRowSize> maxRowSize){
+                maxRowSize = tempMaxRowSize;
+              }
             }
           }
         }
-      }
-      // artinya tidak ada widget text yang ketemu, pakai value default [columnMinWidth]
-      if(maxRowSize == 0){
-        columns[x].assignedColumn = columnMinWidth;
-      }
-      else{
-        // apply min width
-        if(maxRowSize < columnMinWidth){
+        // artinya tidak ada widget text yang ketemu, pakai value default [columnMinWidth]
+        if(maxRowSize == 0){
           columns[x].assignedColumn = columnMinWidth;
         }
         else{
-          columns[x].assignedColumn = maxRowSize;
+          // apply min width
+          if(maxRowSize < columnMinWidth){
+            columns[x].assignedColumn = columnMinWidth;
+          }
+          else{
+            columns[x].assignedColumn = maxRowSize;
+          }
         }
       }
-      print("texText MAX: ${x}. ${columns[x].assignedColumn}");
     }
   }
 
