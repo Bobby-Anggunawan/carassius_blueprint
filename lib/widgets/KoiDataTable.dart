@@ -201,43 +201,51 @@ class KoiDataTable extends StatelessWidget {
       onSort: onSort,
     );
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(
-        width: countCombinedWidth(),
-        child: Stack(
-          children: [
-            ListView.builder(
-                itemCount: row.length+1,
-                itemBuilder: (context, indeks){
+    return Scrollbar(
+      thickness: 10,
+      thumbVisibility: true,
+      trackVisibility: true,
+      interactive: true,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          width: countCombinedWidth(),
+          child: Stack(
+            children: [
 
-                  if(indeks == 0){
-                    return header;
+              ListView.builder(
+                  itemCount: row.length+1,
+                  itemBuilder: (context, indeks){
+
+                    if(indeks == 0){
+                      return header;
+                    }
+
+                    return KoiDataTableItems(
+                      config: columns,
+                      column: List.generate(row[indeks-1].length, (indexCol){
+                        return row[indeks-1][indexCol];
+                      }),
+                      isLastItem: row.length == indeks,
+                      backgroudColor: backgroudColor,
+                      rowMinHeight:  rowMinHeight,
+                      cellContentAlignment: cellContentAlignment,
+                      borderInnerHorizontal: borderInnerHorizontal,
+                      borderInnerVertical: borderInnerVertical,
+                      borderOuter: borderOuter,
+                      headerMinHeight: headerMinHeight,
+                      cellContentpadding: cellContentpadding,
+                      onSort: onSort,
+                    );
                   }
+              ),
 
-                  return KoiDataTableItems(
-                    config: columns,
-                    column: List.generate(row[indeks-1].length, (indexCol){
-                      return row[indeks-1][indexCol];
-                    }),
-                    isLastItem: row.length == indeks,
-                    backgroudColor: backgroudColor,
-                    rowMinHeight:  rowMinHeight,
-                    cellContentAlignment: cellContentAlignment,
-                    borderInnerHorizontal: borderInnerHorizontal,
-                    borderInnerVertical: borderInnerVertical,
-                    borderOuter: borderOuter,
-                    headerMinHeight: headerMinHeight,
-                    cellContentpadding: cellContentpadding,
-                    onSort: onSort,
-                  );
-                }
-            ),
-            Container(
-              width: countCombinedWidth(),
-              child: header,
-            )
-          ],
+              Container(
+                width: countCombinedWidth(),
+                child: header,
+              )
+            ],
+          ),
         ),
       ),
     );

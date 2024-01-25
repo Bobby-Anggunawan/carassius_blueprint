@@ -28,16 +28,19 @@ class Halaman3 extends StatelessWidget {
           KoiDataTableColumn(
             title: Text("satu"),
             canSort: true,
-            size: 150
+            size: 400
           ),
           KoiDataTableColumn(
-              title: Text("dua")
+              title: Text("dua"),
+              size: 400
           ),
           KoiDataTableColumn(
-              title: Text("tiga")
+              title: Text("tiga"),
+              size: 400
           ),
           KoiDataTableColumn(
-              title: Text("empat")
+              title: Text("empat"),
+              size: 400
           ),
         ],
         row: [
@@ -49,6 +52,33 @@ class Halaman3 extends StatelessWidget {
           [Text("6"), Text("2"), Text("3"), Text("4"),],
           [Text("7"), Text("2"), Text("3"), Text("4"),],
           [Text("8"), Text("2"), Text("3"), Text("4"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
+          [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
           [Text("9"), Text("2"), Text("3"), Text("ada orang makan ikan asin tapi direbus pakai air cabe"),],
         ],
       ),
