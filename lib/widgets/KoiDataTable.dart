@@ -1,4 +1,5 @@
 import 'package:carassius_blueprint/carassius_blueprint.dart';
+import 'package:carassius_blueprint/library/KoiWidgetHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,7 @@ class KoiDataTable extends StatelessWidget {
     this.backgroudColor = Colors.white,
     this.rowMinHeight = 52,
     this.headerMinHeight = 56,
+    this.columnMinWidth = 100,
     this.cellContentAlignment = Alignment.centerLeft,
     this.borderInnerVertical = BorderSide.none,
     this.borderInnerHorizontal = const BorderSide(color: Colors.black),
@@ -54,6 +56,10 @@ class KoiDataTable extends StatelessWidget {
   ///
   /// *https://m2.material.io/components/data-tables#anatomy*
   final double headerMinHeight;
+
+  /// lebar minimum suatu kolom(kalau kolom di asignt otomatis/size dibiarkan null)
+  /// Note, nilai 100 dariku sendiri
+  final double columnMinWidth;
 
   /// spacing antar kolom. Default **16** dapat dari:
   ///
@@ -93,12 +99,58 @@ class KoiDataTable extends StatelessWidget {
   /// fungsi yang dipanggil kalau tombol sort ditekan di header
   final void Function(int indexSortedColumn, List<SortDirections> allColumnDirection)? onSort;
 
+  /// fungsi untuk memasukkan lebar kolom otomatis(kalau lebar kolom dibiarkan null)
+  ///
+  /// **Ketentuan**
+  /// * kalau widget ini [Text()], akan digunakan fungsi [Text_getSize.Text.Text_getSize()] untuk menghitung sizenya
+  /// * untuk widget selain text, untuk saat ini hanya menggunakan nilai default saja. Nilainya adalah nilai dari [columnMinWidth]
+  ///
+  /// **WARNING**
+  /// * widget [Text], isi textnya juga bisa dimasukkan ke [TextSpan]. Aku gak tahu ini apa jadi kalau textnya textspan, aku pakai nilai default saja 150. jadi ini cuma bisa calculate text yang dibuat pakai cara biasa kayak [Text("Lorem ipsum")]
+  void assignColumnSize(BuildContext context){
+    for(int x=0; x< row[0].length; x++){
+      double maxRowSize = 0;
+      for(int y =0; y< row.length; y++){
+        if(row[y][x] is Text){
+          var containText = row[y][x] as Text;
+          print("texText ${x}: ${containText.data!}");
+          if(containText.data != null){
+            var tempMaxRowSize = KoiWidgetHelper.Text.getSize(containText.data!, containText.style ?? DefaultTextStyle.of(context).style).width;
+            if(tempMaxRowSize> maxRowSize){
+              maxRowSize = tempMaxRowSize;
+            }
+          }
+        }
+      }
+      // artinya tidak ada widget text yang ketemu, pakai value default [columnMinWidth]
+      if(maxRowSize == 0){
+        columns[x].assignedColumn = columnMinWidth;
+      }
+      else{
+        // apply min width
+        if(maxRowSize < columnMinWidth){
+          columns[x].assignedColumn = columnMinWidth;
+        }
+        else{
+          columns[x].assignedColumn = maxRowSize;
+        }
+      }
+      print("texText MAX: ${x}. ${columns[x].assignedColumn}");
+    }
+  }
+
   double countCombinedWidth(){
 
     double ret = 0;
-    columns.forEach((element) {
-      ret+= element.size;
-    });
+
+    for(int x=0; x< columns.length; x++){
+      if(columns[x].size == null){
+        ret+= columns[x].assignedColumn!;
+      }
+      else{
+        ret+= columns[x].size!;
+      }
+    }
 
     return ret;
   }
@@ -122,6 +174,8 @@ class KoiDataTable extends StatelessWidget {
     * - timpa header di atas widget list dengan widget stack
     * - note header yang [ertama disisipkan berguna untuk menurunkan item di list supaya header di stack tidak menimpa item pertama*/
 
+
+    assignColumnSize(context);
 
     var header = KoiDataTableItems(
       column: null,
@@ -260,7 +314,7 @@ class KoiDataTableItems extends StatelessWidget {
                 constraints: BoxConstraints(
                   minHeight: rowMinHeight
                 ),
-                width: config[index].size,
+                width: config[index].size ?? config[index].assignedColumn,
                 child: Padding(
                   padding: cellContentpadding,
                   child: Align(
@@ -300,7 +354,7 @@ class KoiDataTableItems extends StatelessWidget {
                 constraints: BoxConstraints(
                   minHeight: headerMinHeight
                 ),
-                width: config[index].size,
+                width: config[index].size ?? config[index].assignedColumn,
                 child: Padding(
                   padding: cellContentpadding,
                   child: Align(
@@ -369,7 +423,7 @@ class KoiDataTableItems extends StatelessWidget {
 class KoiDataTableColumn{
   KoiDataTableColumn({
     required this.title,
-    this.size = 100,
+    this.size,
     this.canSort = false,
     this.directions = SortDirections.None
   });
@@ -379,8 +433,10 @@ class KoiDataTableColumn{
 
   /// lebar dari kolom ini
   /// kalau null artinya sizenya otomatis
-  /// kalau tidak null, sizenya mengikuti angka yang dimasukkan
-  final double size;
+  /// kalau tidak null, sizenya mengikuti angka yang dimasukkan ke [assignedColumn]
+  final double? size;
+  /// kalau size null, fungsi [assignColumnSize] akan menggenarate lebar kolom otomatis sesuai dengan isi dari semua row di kolom tersebut
+  double? assignedColumn;
 
   /// apa kolom ini bisa di sort
   /// Defaultnya false
