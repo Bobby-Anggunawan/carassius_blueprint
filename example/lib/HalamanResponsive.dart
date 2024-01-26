@@ -25,7 +25,7 @@ class HalamanResponsive extends StatelessWidget {
               .setTablet(PaneWidth.flexible())
               .setLaptop(PaneWidth.flexible())
               .setDesktop(PaneWidth.flexible()),
-          child: Center(child: Text("${KoiVariable.windowWidthDP} - ${MediaQuery.of(context).size.width}"),),
+          child: Center(child: Text("${KoiToolbox.windowSize.width} - ${MediaQuery.of(context).size.width}"),),
         ),
 
         Pane(

@@ -47,7 +47,7 @@ class KoiLayoutPanes extends StatelessWidget {
       // todo [v], harusnya kalau ukuran lebih dari window, dibuat di line baru
       // todo, harusnya spacing antar pane juga dihitung. sekarang tidak
       else{
-        if(KoiVariable.windowWidthDP > element.paneConfig.getPaneWidth(context).fixed){
+        if(KoiToolbox.windowSize.width > element.paneConfig.getPaneWidth(context).fixed){
           panesWidget.add(element);
         }
         else{
