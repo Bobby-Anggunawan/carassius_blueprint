@@ -15,7 +15,7 @@ void main() {
         routes: KoiScaffoldRoute
             //.baseRoute(Scaffold(body: HalamanResponsive(),))
             //.baseRoute(KoiPageError.Forbidden(message: "Ini test",))
-            .baseRoute(KoiPageSplash(redirectTo: "/halaman3", initialization: (context)async{
+            .baseRoute(KoiPageSplash(redirectTo: "/testWidget", initialization: (context)async{
 
               print("Start wait at ${DateTime.now()}");
               await Future.delayed(Duration(seconds: 5));
@@ -28,6 +28,30 @@ void main() {
             //.baseRoute(Halaman1())
             .addRoutes("/halaman2", Halaman2())
             .addRoutes("/halaman3", Halaman3())
+            .addRoutes(
+              '/testWidget',
+              KoiPageForm(
+                title: 'Judul form',
+                field: {
+                  "teks1": FieldType.text,
+                  "teks2": FieldType.text,
+                  "pass": FieldType.password
+                },
+                background: Container(
+                  color: Colors.blue,
+                ),
+                onSubmit: (Map<String, dynamic> value) {
+                  print("teks1: ${value}");
+                  print("teks2: ${value["teks2"] ?? "masih null"}");
+                  print("pass: ${value["pass"] ?? "masih null"}");
+                },
+                  submitButton: (submitFunc){
+                    return ElevatedButton(onPressed: (){
+                      submitFunc();
+                    }, child: Text("Ikan"));
+                  }
+              )
+            )
       )
   );
 }
