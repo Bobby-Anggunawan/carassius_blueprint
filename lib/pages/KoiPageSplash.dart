@@ -40,6 +40,8 @@ class KoiPageSplash extends StatefulWidget {
 
 class _KoiPageSplashState extends State<KoiPageSplash> {
 
+  late Timer atimer;
+
   @override
   void initState(){
     // TODO: implement initState
@@ -65,7 +67,7 @@ class _KoiPageSplashState extends State<KoiPageSplash> {
       widget.initialization!(context).then((value){
 
         // periksa tiap detik apa timer selesai
-        Timer.periodic(
+        atimer = Timer.periodic(
           Duration(seconds: 1),
           (time){
             if(timerSelesai){
@@ -89,6 +91,14 @@ class _KoiPageSplashState extends State<KoiPageSplash> {
           }
       );
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    atimer.cancel();
   }
 
   @override
