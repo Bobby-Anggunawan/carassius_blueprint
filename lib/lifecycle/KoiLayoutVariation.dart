@@ -1,6 +1,9 @@
 import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
 
+
+/// halaman untuk menampilkan beberapa widget sesuai key
+/// untuk menggunakan gunakan fungsi KoiLayoutVariation().addLayout() dan KoiLayoutVariation().showLayoutWithKey()
 class KoiLayoutVariation extends StatelessWidget {
 
   const KoiLayoutVariation({Key? key, this.layoutList = const {}, this.showedLayoutKey = const {"showedLayoutKey": null}}): super(key: key);
