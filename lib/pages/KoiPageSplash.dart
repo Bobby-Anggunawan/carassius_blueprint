@@ -1,4 +1,5 @@
 import "dart:async";
+import "dart:js_interop";
 
 import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
@@ -12,10 +13,10 @@ class KoiPageSplash extends StatefulWidget {
   const KoiPageSplash({Key? key, this.content, this.initialization, this.redirectTo, this.redirectAfter}) : super(key: key);
 
   /// redirect ke dalam aplikasi setelah sekian detik
-  const KoiPageSplash.redirectAfterSecond({Key? key, required int redirectAfter, required String redirectTo, this.content}) : initialization = null, redirectAfter = redirectAfter, redirectTo = redirectTo, super(key: key);
+  const KoiPageSplash.redirectAfterSecond({Key? key, required int redirectAfter, this.redirectTo, this.content}) : initialization = null, redirectAfter = redirectAfter, super(key: key);
 
   /// redirect ke dalam aplikasi setelah fungsi ini selesai
-  const KoiPageSplash.redirectAfterFunction({Key? key, required Future<void> Function(BuildContext context) initialization, required String redirectTo, this.content}) : redirectAfter = 0, redirectTo = redirectTo, initialization = initialization, super(key: key);
+  const KoiPageSplash.redirectAfterFunction({Key? key, required Future<void> Function(BuildContext context) initialization, this.redirectAfter, required String redirectTo, this.content}) : redirectTo = redirectTo, initialization = initialization, super(key: key);
 
   /// apa yang ditampilkan selama splash screen. Jika ini null, maka widget default akan ditampilkan
   final Widget? content;
@@ -44,21 +45,49 @@ class _KoiPageSplashState extends State<KoiPageSplash> {
     // TODO: implement initState
     super.initState();
 
-    if(widget.redirectAfter != null){
-      Timer(
-        Duration(seconds: widget.redirectAfter!),
-          (){
-            Navigator.of(context).pushNamed(widget.redirectTo!);
+    if(widget.initialization != null){
+
+      //start timer
+      bool timerSelesai = false;
+      if(widget.redirectAfter != null){
+        Timer(
+            Duration(seconds: widget.redirectAfter!),
+                (){
+              timerSelesai = true;
+            }
+        );
+      }
+      else{
+        timerSelesai = true;
+      }
+
+      /// jalankan fungsi
+      widget.initialization!(context).then((value){
+
+        // periksa tiap detik apa timer selesai
+        Timer.periodic(
+          Duration(seconds: 1),
+          (time){
+            if(timerSelesai){
+              if(widget.redirectTo != null){
+                Navigator.of(context).pushNamed(widget.redirectTo!);
+              }
+              time.cancel();
+            }
           }
-      );
+        );
+      });
     }
 
-    if(widget.initialization != null){
-      widget.initialization!(context).then((value){
-        if(widget.redirectTo != null){
-          Navigator.of(context).pushNamed(widget.redirectTo!);
-        }
-      });
+    else if(widget.redirectAfter != null){
+      Timer(
+          Duration(seconds: widget.redirectAfter!),
+              (){
+            if(widget.redirectTo != null){
+              Navigator.of(context).pushNamed(widget.redirectTo!);
+            }
+          }
+      );
     }
   }
 
