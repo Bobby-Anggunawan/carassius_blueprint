@@ -15,7 +15,7 @@ void main() {
         routes: KoiScaffoldRoute
             //.baseRoute(Scaffold(body: HalamanResponsive(),))
             //.baseRoute(KoiPageError.Forbidden(message: "Ini test",))
-            .baseRoute(KoiPageSplash(redirectTo: "/testWidget", redirectAfter: 3, initialization: (context)async{
+            .baseRoute(KoiPageSplash(redirectTo: "/halaman3", redirectAfter: 3, initialization: (context)async{
 
               print("Start wait at ${DateTime.now()}");
               await Future.delayed(Duration(seconds: 5));

@@ -1,73 +1,125 @@
-import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
 
+/// gunakan fungsi [setLayout()] untuk mengganti layout
+class LayoutVariationController{
+  LayoutVariationController(): _showedLayoutKey = ValueNotifier(null);
+  LayoutVariationController.initialKey(String showedLayoutKey): _showedLayoutKey = ValueNotifier(showedLayoutKey);
+
+  /// key layout yang saat ini ditampilkan
+  ValueNotifier<String?> _showedLayoutKey;
+
+  /// ubah layout yang ditampilkan
+  void setLayout(String key){
+    _showedLayoutKey.value = key;
+  }
+}
 
 /// halaman untuk menampilkan beberapa widget sesuai key
-/// untuk menggunakan gunakan fungsi KoiLayoutVariation().addLayout() dan KoiLayoutVariation().showLayoutWithKey()
-class KoiLayoutVariation extends StatelessWidget {
+///
+/// masukkan layout ke [layoutList] beserta keynya
+///
+/// gunakan [controller.setLayout(key)] untuk mengatur layout mana yang saat ini ditampilkan dengan memasukkan key yang di set di [layoutList]
+class KoiLayoutVariation extends StatefulWidget {
 
-  const KoiLayoutVariation({Key? key, this.layoutList = const {}, this.showedLayoutKey = const {"showedLayoutKey": null}}): super(key: key);
+  KoiLayoutVariation({Key? key, required this.layoutList, required this.controller}): super(key: key);
 
 
+  /// daftar layout yang bisa ditampilkan beserta key untuk mengaksesnya
+  ///
+  /// gunakan [controller] untuk mengatur layout mana yang saat ini ditampilkan
   final Map<String, Widget> layoutList;
-  final Map<String, String?> showedLayoutKey;
+  /// untuk mengatur layout yang ditampilkan dari map [layoutList]
+  ///
+  /// gunakan [controller.setLayout(key)] untuk mengatur layout mana yang saat ini ditampilkan dengan memasukkan key yang di set di [layoutList]
+  final LayoutVariationController controller;
 
-  /// Tambah variasi halaman baru dan key untuk mengakses variasi halaman ini di fungsi [showLayoutWithKey()].
-  ///
-  /// **Parameter**
-  /// * [key]: Parameter yang digunakan untuk mengakses layout ini
-  /// * [layout]: Layout yang akan ditampilkan
-  ///
-  /// **Contoh**
-  /// * KoiLayoutVariation.addLayout(key: "halaman1", layout: Halaman1())
-  ///
-  /// **WARNING**
-  /// * Kalau [addLayout()] digunakan untuk menambah layout baru dengan key yang sudah ada, fungsi ini akan mereturn error
-  KoiLayoutVariation addLayout({required String key, required Widget layout}){
-    if(layoutList[key] != null){
-      throw AssertionError("Key dari layout ini sudah ada. Gunakan key lain..");
-    }
+  @override
+  State<KoiLayoutVariation> createState() => _KoiLayoutVariationState();
+}
 
-    layoutList[key] = layout;
-    return this;
+class _KoiLayoutVariationState extends State<KoiLayoutVariation> {
+  @override
+  Widget build(BuildContext context) {
+
+
+    return ValueListenableBuilder(
+      valueListenable: widget.controller._showedLayoutKey,
+      builder: (BuildContext context, value, Widget? child) {
+
+        var widgetToRet = widget.layoutList[
+          widget.controller._showedLayoutKey.value ?? widget.layoutList.keys.first
+        ];
+
+        if(widgetToRet != null){
+          return widgetToRet;
+        }
+        else{
+          throw AssertionError("KoiLayoutVariation: Error, layout dengan key '${widget.controller._showedLayoutKey.value}' tersebut tidak ditemukan");
+        }
+      },
+    );
   }
+}
 
 
-  /// Key layout yang akan ditampilkan. Layout dan keynya di set di fungsi [addLayout()]
-  ///
-  /// **Parameter**
-  /// * [key]: Key dari layout yang akan tampil
-  ///
-  /// **Contoh**
-  /// * KoiLayoutVariation.showLayoutWithKey(key: "halaman1")
-  ///
-  /// **WARNING**
-  /// * Kalau key di sini tidak ditemukan(tidak pernah ditambahkan dengan [addLayout()]), widget ini akan menghasilkan error
-  KoiLayoutVariation showLayoutWithKey({required String key}){
-    showedLayoutKey["showedLayoutKey"] = key;
-    return this;
-  }
 
+/*
+* CONTOH PENGGUNAAN
+*
+* class Halaman3 extends StatelessWidget {
+  Halaman3({Key? key}) : super(key: key);
+
+  final LayoutVariationController myController = LayoutVariationController();
 
   @override
   Widget build(BuildContext context) {
 
-    var aKey = showedLayoutKey["showedLayoutKey"];
+    //----------
+    Timer.periodic(
+      Duration(seconds: 1),
+        (timer){
+          myController.setLayout("satu");
+        }
+    );
+    //----------
 
-    if(aKey != null){
+    //----------
+    Timer.periodic(
+        Duration(seconds: 1),
+            (timer){
+          myController.setLayout("dua");
+        }
+    );
+    //----------
 
-      var widgetToRet = layoutList[aKey];
+    //----------
+    Timer.periodic(
+        Duration(seconds: 1),
+            (timer){
+          myController.setLayout("tiga");
+        }
+    );
+    //----------
 
-      if(widgetToRet != null){
-        return widgetToRet;
-      }
-      else{
-        throw AssertionError("KoiLayoutVariation: Error, layout dengan key tersebut tidak ditemukan");
-      }
-    }
+    //----------
+    Timer.periodic(
+        Duration(seconds: 1),
+            (timer){
+          myController.setLayout("empat");
+        }
+    );
+    //----------
 
-    else{
-      return KoiPageError.NotFound();
-    }
+    return Scaffold(
+      body: KoiLayoutVariation(
+        controller: myController,
+        layoutList: {
+          "satu": Container(color: Colors.red, child: Center(child: Text("Satu"),),),
+          "dua": Container(color: Colors.blue, child: Center(child: Text("Dua"),),),
+          "tiga": Container(color: Colors.green, child: Center(child: Text("Tiga"),),),
+          "empat": Container(color: Colors.yellow, child: Center(child: Text("Empat"),),),
+        },
+      ),
+    );
   }
-}
+}*/
