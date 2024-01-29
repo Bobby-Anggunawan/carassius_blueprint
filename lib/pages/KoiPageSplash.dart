@@ -16,6 +16,12 @@ class KoiPageSplash extends StatefulWidget {
   const KoiPageSplash.redirectAfterSecond({Key? key, required int redirectAfter, this.redirectTo, this.content}) : initialization = null, redirectAfter = redirectAfter, super(key: key);
 
   /// redirect ke dalam aplikasi setelah fungsi ini selesai
+  ///
+  /// **initialization** adalah fungsi yang dieksekusi di splash screen sebelum di redirect ke halaman lain
+  /// **NOTE**
+  ///
+  /// * Sebaiknya diakhir fungsi ini redirect ke halaman lain. Kalau tidak, halaman ini akan terus ditampilkan
+  /// * return false kalau tidak jadi redirect
   const KoiPageSplash.redirectAfterFunction({Key? key, required Future<bool?> Function(BuildContext context) initialization, this.redirectAfter, required String redirectTo, this.content}) : redirectTo = redirectTo, initialization = initialization, super(key: key);
 
   /// apa yang ditampilkan selama splash screen. Jika ini null, maka widget default akan ditampilkan
@@ -65,7 +71,7 @@ class _KoiPageSplashState extends State<KoiPageSplash> {
       }
 
       /// jalankan fungsi
-      widget.initialization!(context).then((value){
+      widget.initialization!(context)!.then((value){
 
         // periksa tiap detik apa timer selesai
         atimer = Timer.periodic(

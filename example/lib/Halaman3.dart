@@ -12,52 +12,14 @@ class Halaman3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //----------
-    Timer.periodic(
-      Duration(seconds: 1),
-        (timer){
-          myController.setLayout("satu");
-        }
-    );
-    //----------
-
-    //----------
-    Timer.periodic(
-        Duration(seconds: 1),
-            (timer){
-          myController.setLayout("dua");
-        }
-    );
-    //----------
-
-    //----------
-    Timer.periodic(
-        Duration(seconds: 1),
-            (timer){
-          myController.setLayout("tiga");
-        }
-    );
-    //----------
-
-    //----------
-    Timer.periodic(
-        Duration(seconds: 1),
-            (timer){
-          myController.setLayout("empat");
-        }
-    );
-    //----------
 
     return Scaffold(
-      body: KoiLayoutVariation(
-        controller: myController,
-        layoutList: {
-          "satu": Container(color: Colors.red, child: Center(child: Text("Satu"),),),
-          "dua": Container(color: Colors.blue, child: Center(child: Text("Dua"),),),
-          "tiga": Container(color: Colors.green, child: Center(child: Text("Tiga"),),),
-          "empat": Container(color: Colors.yellow, child: Center(child: Text("Empat"),),),
-        },
-      ),
+      body: KoiLayoutResponsive(updateWhenResize: true,)
+          .setPhone(Center(child: Text("Phone"),))
+          .setTablet(Center(child: Text("Tablet"),))
+          .setLaptop(Center(child: Text("Laptop"),))
+          .setDesktop(Center(child: Text("Desktop"),))
+      ,
     );
   }
 }
