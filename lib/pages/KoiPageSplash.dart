@@ -16,7 +16,7 @@ class KoiPageSplash extends StatefulWidget {
   const KoiPageSplash.redirectAfterSecond({Key? key, required int redirectAfter, this.redirectTo, this.content}) : initialization = null, redirectAfter = redirectAfter, super(key: key);
 
   /// redirect ke dalam aplikasi setelah fungsi ini selesai
-  const KoiPageSplash.redirectAfterFunction({Key? key, required Future<void> Function(BuildContext context) initialization, this.redirectAfter, required String redirectTo, this.content}) : redirectTo = redirectTo, initialization = initialization, super(key: key);
+  const KoiPageSplash.redirectAfterFunction({Key? key, required Future<bool?> Function(BuildContext context) initialization, this.redirectAfter, required String redirectTo, this.content}) : redirectTo = redirectTo, initialization = initialization, super(key: key);
 
   /// apa yang ditampilkan selama splash screen. Jika ini null, maka widget default akan ditampilkan
   final Widget? content;
@@ -25,8 +25,9 @@ class KoiPageSplash extends StatefulWidget {
   ///
   /// **NOTE**
   ///
-  /// Sebaiknya diakhir fungsi ini redirect ke halaman lain. Kalau tidak, halaman ini akan terus ditampilkan
-  final Future<void> Function(BuildContext context)? initialization;
+  /// * Sebaiknya diakhir fungsi ini redirect ke halaman lain. Kalau tidak, halaman ini akan terus ditampilkan
+  /// * return false kalau tidak jadi redirect
+  final Future<bool?> Function(BuildContext context)? initialization;
 
   /// optional, path pada route kemana user akan diarahkan saat fungsi [initialization] selesai. Jadi ini hanya diisi jika [initialization] tidak null. Jika [initialization] dan variable ini diisi, tidak ada yang akan terjadi
   final String? redirectTo;
@@ -71,7 +72,7 @@ class _KoiPageSplashState extends State<KoiPageSplash> {
           Duration(seconds: 1),
           (time){
             if(timerSelesai){
-              if(widget.redirectTo != null){
+              if(widget.redirectTo != null && value != false){
                 Navigator.of(context).pushNamed(widget.redirectTo!);
               }
               time.cancel();
