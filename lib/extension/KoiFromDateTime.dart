@@ -50,10 +50,10 @@ extension KoiFromDateTime on DateTime{
   String koiStringOnlyDate({String separator = " ", bool withYear = true, bool showMonthName = true}){
     late String month;
     if(showMonthName){
-      month = monthNames[DateTime.now().month]!;
+      month = monthNames[this.month]!;
     }
     else{
-      month = DateTime.now().month.koiToXDigit();
+      month = this.month.koiToXDigit();
     }
 
     if(withYear){
