@@ -15,7 +15,8 @@ class KoiFullscreenDialog extends StatelessWidget {
     required this.onConfirm,
     this.confirmButtonText = "Confirm",
     this.confirmButtonIcon = Icons.edit,
-    this.subtitle = null
+    this.subtitle = null,
+    this.backgroundColor = null
   }) : super(key: key);
 
   /// fungsi yang dijalankan kalau tombol confirm ditekan
@@ -35,10 +36,15 @@ class KoiFullscreenDialog extends StatelessWidget {
   /// icon dari tombol confirm/tombol ok. Defaultrnya adalah [Icons.edit]
   final IconData confirmButtonIcon;
 
+  /// background color untuk dialog ini.
+  ///
+  /// Defaultmya [context.koiThemeColor.primaryContainer]
+  final Color? backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return Dialog.fullscreen(
-      backgroundColor: context.koiThemeColor.primaryContainer,
+      backgroundColor: backgroundColor ?? context.koiThemeColor.primaryContainer,
       child: Padding(
         padding: EdgeInsets.all(context.koiSpacing.autoFromScreenEdge),
         child: Column(
