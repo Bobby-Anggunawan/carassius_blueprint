@@ -9,17 +9,31 @@ class Halaman3 extends StatelessWidget {
 
   final LayoutVariationController myController = LayoutVariationController();
 
+  final KoiFullscreenDialog aDialog = KoiFullscreenDialog(
+    content: Container(
+      color: Colors.green,
+      child: Center(
+        child: Text("Ikan"),
+      ),
+    ),
+    title: 'Ayam',
+    onConfirm: (){},
+  );
+
   @override
   Widget build(BuildContext context) {
 
 
     return Scaffold(
-      body: KoiLayoutResponsive(updateWhenResize: true,)
-          .setPhone(Center(child: Text("Phone"),))
-          .setTablet(Center(child: Text("Tablet"),))
-          .setLaptop(Center(child: Text("Laptop"),))
-          .setDesktop(Center(child: Text("Desktop"),))
-      ,
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            aDialog.show(context);
+          },
+          child: Text("click me"),
+
+        ),
+      ),
     );
   }
 }

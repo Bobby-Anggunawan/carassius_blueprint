@@ -1,15 +1,42 @@
 import "package:carassius_blueprint/carassius_blueprint.dart";
 import "package:flutter/material.dart";
 
-void KoiFullscreenDialog(
-    {required BuildContext context,
-      required Function onConfirm,
-      required String penjelasanDialog,
-      required String judulDataDialog,
-      required Widget content,
-      String confirmButtonText = "Confirm",
-      IconData confirmButtonIcon = Icons.edit}){
-  showDialog(context: context, builder: (context){
+
+/// untuk menampilkan fullscreen dialog sesuai style dari material design. Sama seperti daterange picker
+///
+/// **Note**, gunakan fungsi showDialog() untuk memanggil dialog ini
+///
+/// **Note2**, dapat juga menggunakan fungsi [show()] di dalam widget ini untuk menampilkan dialog ini
+class KoiFullscreenDialog extends StatelessWidget {
+  const KoiFullscreenDialog({
+    Key? key,
+    required this.content,
+    required this.title,
+    required this.onConfirm,
+    this.confirmButtonText = "Confirm",
+    this.confirmButtonIcon = Icons.edit,
+    this.subtitle = null
+  }) : super(key: key);
+
+  /// fungsi yang dijalankan kalau tombol confirm ditekan
+  final Function onConfirm;
+
+  /// subtitle optional yang menjelaskan isi dialog
+  final String? subtitle;
+
+  /// judul dialog
+  final String title;
+
+  /// isi dialog
+  final Widget content;
+
+  /// judul dari tombol confirm/tombol ok. Defaultrnya adalah "Confirm"
+  final String confirmButtonText;
+  /// icon dari tombol confirm/tombol ok. Defaultrnya adalah [Icons.edit]
+  final IconData confirmButtonIcon;
+
+  @override
+  Widget build(BuildContext context) {
     return Dialog.fullscreen(
       backgroundColor: context.koiThemeColor.primaryContainer,
       child: Padding(
@@ -65,14 +92,14 @@ void KoiFullscreenDialog(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          penjelasanDialog.toUpperCase(),
+                          subtitle?.toUpperCase() ?? "",
                           style: context.koiThemeText.body(size: TextStyleSize.Small).apply(color: context.koiThemeColor.onPrimaryContainer),
                         ),
 
                         Padding(padding: EdgeInsets.only(top: context.koiSpacing.smallest)),
 
                         Text(
-                          judulDataDialog,
+                          title,
                           style: context.koiThemeText.title(size: TextStyleSize.Large).apply(color: context.koiThemeColor.onPrimaryContainer,),
                         ),
                       ],
@@ -90,5 +117,12 @@ void KoiFullscreenDialog(
         ),
       ),
     );
-  });
+  }
+
+  /// fungsi untuk menampilkan dialog ini
+  Future<dynamic> show(BuildContext context){
+    return showDialog(context: context, builder: (context){
+      return this;
+    });
+  }
 }
