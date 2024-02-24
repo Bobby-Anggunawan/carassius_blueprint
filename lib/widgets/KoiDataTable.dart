@@ -47,6 +47,7 @@ class KoiDataTable extends StatelessWidget {
     this.borderOuter = const BorderSide(color: Colors.black),
     this.cellContentpadding = const EdgeInsets.symmetric(horizontal: 16),
     this.onSort = null,
+    this.highlightRowIndex = const {}
   }) : super(key: key);
 
   /// tinggi minimal tiap row. Default **52** dapat dari:
@@ -99,6 +100,9 @@ class KoiDataTable extends StatelessWidget {
   /// **WARNING**
   /// kalau jumlah item dalam list di bagian dalam tidak sama dengan jumlah item dalam list di parameter [columns], widget ini akan mereturn error
   final List<List<Widget>> row;
+
+  /// kalau ada row yang diwarnai, masukkanindeksnya beserta warnanya
+  final Map<int, Color> highlightRowIndex;
 
   /// fungsi yang dipanggil kalau tombol sort ditekan di header
   final void Function(int indexSortedColumn, List<SortDirections> allColumnDirection)? onSort;
@@ -227,7 +231,7 @@ class KoiDataTable extends StatelessWidget {
                         return row[indeks-1][indexCol];
                       }),
                       isLastItem: row.length == indeks,
-                      backgroudColor: backgroudColor,
+                      backgroudColor: highlightRowIndex[indeks-1] ?? backgroudColor,
                       rowMinHeight:  rowMinHeight,
                       cellContentAlignment: cellContentAlignment,
                       borderInnerHorizontal: borderInnerHorizontal,
