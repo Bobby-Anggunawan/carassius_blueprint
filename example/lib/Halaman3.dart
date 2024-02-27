@@ -24,14 +24,20 @@ class Halaman3 extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
+    var myProgress = KoiProgressIndicator.showBassedFromHistory(historyKey: "sapi");
+
+    Future.delayed(const Duration(seconds: 30), () {
+      myProgress.recordHistoryOfKey();
+    });
+
+
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            aDialog.show(context);
-          },
-          child: Text("click me"),
-
+        child: Container(
+          color: Colors.lightGreenAccent,
+          width: 100,
+          height: 100,
+          child: myProgress,
         ),
       ),
     );
